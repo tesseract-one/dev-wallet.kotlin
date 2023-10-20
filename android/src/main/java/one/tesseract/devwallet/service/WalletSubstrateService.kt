@@ -1,22 +1,23 @@
 package one.tesseract.devwallet.service
 
-import cash.z.ecc.android.bip39.Mnemonics
 import dev.sublab.sr25519.KeyPair
-import one.tesseract.devwallet.Application
-import one.tesseract.devwallet.entity.request.SubstrateAccount
-import one.tesseract.devwallet.entity.request.SubstrateSign
-import one.tesseract.devwallet.service.tmp.Transaction
-import one.tesseract.devwallet.service.tmp.address
-import one.tesseract.devwallet.service.tmp.fromMnemonic
-import one.tesseract.devwallet.settings.KeySettingsProvider
+
 import one.tesseract.exception.UserCancelledException
 import one.tesseract.service.protocol.common.substrate.AccountType
 import one.tesseract.service.protocol.common.substrate.GetAccountResponse
 import one.tesseract.service.protocol.kotlin.SubstrateService
 
+import one.tesseract.devwallet.Application
+import one.tesseract.devwallet.entity.request.SubstrateAccount
+import one.tesseract.devwallet.entity.request.SubstrateSign
+import one.tesseract.devwallet.substrate.Transaction
+import one.tesseract.devwallet.substrate.address
+import one.tesseract.devwallet.substrate.fromMnemonic
+import one.tesseract.devwallet.settings.KeySettingsProvider
+
 class WalletSubstrateService(private val application: Application, private val settings: KeySettingsProvider): SubstrateService {
     override suspend fun getAccount(type: AccountType): GetAccountResponse {
-        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode(settings.load().mnemonic), "")
+        val kp = KeyPair.fromMnemonic(settings.load().mnemonic)
         val address = kp.address()
 
         val accountRequest = SubstrateAccount(type.name, "", address)
@@ -36,17 +37,15 @@ class WalletSubstrateService(private val application: Application, private val s
         extrinsicMetadata: ByteArray,
         extrinsicTypes: ByteArray
     ): ByteArray {
-        val transaction = Transaction.from(extrinsicData, extrinsicTypes, extrinsicMetadata)
+        val transaction = Transaction(extrinsicData, extrinsicTypes, extrinsicMetadata)
         val transactionString = transaction.toString()
 
-        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode(settings.load().mnemonic), "")
+        val kp = KeyPair.fromMnemonic(settings.load().mnemonic)
         val address = kp.address()
 
         val signRequest = SubstrateSign(accountType.name, accountPath, address, transactionString)
 
-        val allow = application.requestUserConfirmation(signRequest)
-
-        return if(allow) {
+        return if(application.requestUserConfirmation(signRequest)) {
             transaction.sign(kp.secretKey).toByteArray()
         } else {
             throw UserCancelledException()

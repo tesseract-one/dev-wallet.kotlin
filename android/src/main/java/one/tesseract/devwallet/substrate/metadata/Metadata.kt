@@ -1,8 +1,9 @@
-package one.tesseract.devwallet.service.tmp
+package one.tesseract.devwallet.substrate.metadata
+
+import java.math.BigInteger
 
 import dev.sublab.common.numerics.*
 import dev.sublab.scale.annotations.*
-import java.math.BigInteger
 
 data class TypeId(val id: BigInteger) : ValueContext {
     override fun toString(): String = "#$id"

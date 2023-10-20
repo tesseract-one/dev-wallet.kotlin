@@ -1,4 +1,8 @@
-package one.tesseract.devwallet.service.tmp
+package one.tesseract.devwallet.substrate.metadata
+
+import java.math.BigInteger
+
+import kotlin.reflect.typeOf
 
 import dev.sublab.scale.ByteArrayReader
 import dev.sublab.common.numerics.*
@@ -6,13 +10,11 @@ import dev.sublab.scale.adapters.*
 import dev.sublab.scale.ScaleCodecAdapterProvider
 import dev.sublab.scale.default.DefaultScaleCodecAdapterProvider
 import dev.sublab.scale.read
-import java.math.BigInteger
-import kotlin.reflect.typeOf
-import one.tesseract.devwallet.service.tmp.RuntimeTypeDefPrimitive.*
 import dev.sublab.hex.hex
 
+import one.tesseract.devwallet.substrate.metadata.RuntimeTypeDefPrimitive.*
+
 sealed interface ValueContext {
-    //object Void : ValueContext
 }
 
 sealed interface ValueDefinition<C: ValueContext> {
@@ -84,16 +86,6 @@ interface DynamicScaleDecodable<T> {
                id: TypeId, types: RuntimeLookup,
                adapters: ScaleCodecAdapterProvider): T
 }
-
-//interface DynamicScaleEncodable {
-//    fun encode(into: ByteArray, id: ValueContext.TypeId, types: RuntimeLookup) {
-//        val type = types.findItemByIndex(id.id)!!
-//        val codec = ScaleCodec
-//        encode(into, type, id, types)
-//    }
-//    fun encode(into: ByteArray, type: RuntimeType,
-//               id: ValueContext.TypeId, types: RuntimeLookup)
-//}
 
 data class Value<C: ValueContext>(val definition: ValueDefinition<C>, val context: C) {
     override fun toString(): String = definition.toString()
