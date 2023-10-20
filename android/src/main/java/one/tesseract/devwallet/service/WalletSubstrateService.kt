@@ -14,10 +14,9 @@ import one.tesseract.service.protocol.common.substrate.AccountType
 import one.tesseract.service.protocol.common.substrate.GetAccountResponse
 import one.tesseract.service.protocol.kotlin.SubstrateService
 
-class WalletSubstrateService(val application: Application, val settings: KeySettingsProvider): SubstrateService {
-    @OptIn(ExperimentalUnsignedTypes::class)
+class WalletSubstrateService(private val application: Application, private val settings: KeySettingsProvider): SubstrateService {
     override suspend fun getAccount(type: AccountType): GetAccountResponse {
-        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode("nuclear text arrow gloom magnet aisle butter chair raven seek desert census"), "")
+        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode(settings.load().mnemonic), "")
         val address = kp.address()
 
         val accountRequest = SubstrateAccount(type.name, "", address)
@@ -40,7 +39,7 @@ class WalletSubstrateService(val application: Application, val settings: KeySett
         val transaction = Transaction.from(extrinsicData, extrinsicTypes, extrinsicMetadata)
         val transactionString = transaction.toString()
 
-        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode("nuclear text arrow gloom magnet aisle butter chair raven seek desert census"), "")
+        val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode(settings.load().mnemonic), "")
         val address = kp.address()
 
         val signRequest = SubstrateSign(accountType.name, accountPath, address, transactionString)

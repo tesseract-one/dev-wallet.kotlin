@@ -1,13 +1,14 @@
 package one.tesseract.devwallet.service
 
+import one.tesseract.exception.UserCancelledException
+import one.tesseract.service.protocol.kotlin.TestService
+
 import one.tesseract.devwallet.Application
 import one.tesseract.devwallet.entity.request.TestError
 import one.tesseract.devwallet.entity.request.TestSign
 import one.tesseract.devwallet.settings.TestSettingsProvider
-import one.tesseract.exception.UserCancelledException
-import one.tesseract.service.protocol.kotlin.TestService
 
-class WalletTestService(val application: Application, val settings: TestSettingsProvider): TestService {
+class WalletTestService(private val application: Application, private val settings: TestSettingsProvider): TestService {
     override suspend fun signTransaction(transaction: String): String {
         val settings = settings.load()
 
@@ -24,7 +25,7 @@ class WalletTestService(val application: Application, val settings: TestSettings
             }
         } else {
             val signature = settings.signature
-            val signed = transaction + signature
+            val signed = "$transaction#$signature"
 
             val request = TestSign(transaction, signature, signed)
             if (application.requestUserConfirmation(request)) {

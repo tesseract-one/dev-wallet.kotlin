@@ -28,15 +28,13 @@ class Application: android.app.Application() {
             .default()
             .service(testService)
             .service(substrateService)
-
-        //getSharedPreferences()
     }
 
     suspend fun <T: Parcelable>requestUserConfirmation(request: T): Boolean {
         return SignActivity.requestUserConfirmation(launcher, request)
     }
 
-    fun testSettingsProvider(): TestSettingsProvider = TestSettingsProvider()
+    fun testSettingsProvider(): TestSettingsProvider = TestSettingsProvider(this)
 
-    fun keySettingsProvider(): KeySettingsProvider = KeySettingsProvider()
+    fun keySettingsProvider(): KeySettingsProvider = KeySettingsProvider(this)
 }
