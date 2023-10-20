@@ -9,7 +9,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 
-import one.tesseract.ipc.activity.free.Launcher
+import one.tesseract.transport.ipc.activity.free.Launcher
 
 import one.tesseract.devwallet.R
 import one.tesseract.devwallet.entity.request.SubstrateAccount
@@ -20,20 +20,18 @@ import one.tesseract.devwallet.ui.sign.fragments.substrate.account.SubstrateAcco
 import one.tesseract.devwallet.ui.sign.fragments.substrate.sign.SubstrateSignFragment
 import one.tesseract.devwallet.ui.sign.fragments.test.error.TestErrorFragment
 import one.tesseract.devwallet.ui.sign.fragments.test.sign.TestSignFragment
-import one.tesseract.ipc.activity.free.finishFreeActivity
+import one.tesseract.transport.ipc.activity.free.finishFreeActivity
 
 class SignActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST = "request"
 
-        fun <T: Parcelable>requestUserConfirmation(launcher: Launcher, request: T): CompletionStage<Boolean> {
+        suspend fun <T: Parcelable>requestUserConfirmation(launcher: Launcher, request: T): Boolean {
             val bundle = Bundle()
 
             bundle.putParcelable(REQUEST, request)
 
-            return launcher.startFreeActivityForResultFuture<Boolean>(SignActivity::class.java, bundle).thenApply {
-                it.second
-            }
+            return launcher.startFreeActivityForResult<Boolean>(SignActivity::class.java, bundle).second
         }
     }
 

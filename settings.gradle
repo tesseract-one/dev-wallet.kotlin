@@ -10,14 +10,23 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://maven.tesseract.one/Tesseract.android")
+        }
+        maven {
+            url = uri("https://repo.repsy.io/mvn/chrynan/public")
+        }
     }
 }
+
+rootProject.name = "Developer Wallet Kotlin"
+
+include ':android'
+project(":android").name = "dev-wallet"
+
 includeBuild('../Tesseract.android') {
     dependencySubstitution {
-        substitute module('one.tesseract.android:crabdroid') using project(':java:crabdroid')
-        substitute module('one.tesseract.android:tesseract-ipc') using project(':java:tesseract-ipc')
-        substitute module('one.tesseract.android:tesseract-ipc-service') using project(':java:tesseract-ipc-service')
+        substitute module('one.tesseract:service') using project(':java:service')
+        substitute module('one.tesseract:common') using project(':java:common')
     }
 }
-rootProject.name = "Developer Wallet"
-include ':android'

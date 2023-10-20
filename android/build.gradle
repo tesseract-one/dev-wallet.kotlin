@@ -8,10 +8,9 @@ android {
     namespace 'one.tesseract.devwallet'
 
     compileSdk rootProject.ext.compileSdkVersion
-    ndkVersion rootProject.ext.ndkVersion
 
     defaultConfig {
-        applicationId "one.tesseract.devwallet"
+        applicationId "one.tesseract.devwallet.kotlin"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
@@ -39,29 +38,6 @@ android {
     }
 }
 
-apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
-
-task fixNotCopyingRustJniLibs(type: Delete) {
-    delete layout.buildDirectory.dir("intermediates/merged_jni_libs")
-}
-
-project.afterEvaluate {
-    tasks.getByName("mergeDebugJniLibFolders").dependsOn("cargoBuild")
-    tasks.getByName("mergeReleaseJniLibFolders").dependsOn("cargoBuild")
-    tasks.getByName("cargoBuild").dependsOn("fixNotCopyingRustJniLibs")
-}
-
-cargo {
-    module  = "../common"       // Or whatever directory contains your Cargo.toml
-    libname = "wallet"          // Or whatever matches Cargo.toml's [package] name.
-    targets = rootProject.ext.rustNdkTargets  // See bellow for a longer list of options
-    targetDirectory = '../target'
-    rustupChannel = "nightly"
-    features {
-        all()
-    }
-}
-
 dependencies {
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -73,9 +49,23 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.ext.navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.ext.navVersion"
 
-    implementation 'one.tesseract.android:crabdroid'
-    implementation 'one.tesseract.android:tesseract-ipc'
-    implementation 'one.tesseract.android:tesseract-ipc-service'
+    implementation "one.tesseract:base:$rootProject.ext.tesseractVersion"
+    //implementation "one.tesseract:common:$rootProject.ext.tesseractVersion"
+    implementation "one.tesseract:common"
+    implementation "one.tesseract:common-transport-ipc:$rootProject.ext.tesseractVersion"
+    //implementation "one.tesseract:service:$rootProject.ext.tesseractVersion"
+    implementation 'one.tesseract:service'
+    implementation "one.tesseract:service-transport:$rootProject.ext.tesseractVersion"
+    implementation "one.tesseract:service-transport-ipc:$rootProject.ext.tesseractVersion"
+
+    implementation("dev.sublab:scale-codec-kotlin:1.0.0")
+
+    implementation("dev.sublab:common-kotlin:1.0.0")
+    implementation("dev.sublab:sr25519-kotlin:1.0.0")
+    implementation("dev.sublab:hashing-kotlin:1.0.0")
+
+    implementation("cash.z.ecc.android:kotlin-bip39:1.0.4")
+    implementation("org.bouncycastle:bcprov-jdk18on:1.76")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

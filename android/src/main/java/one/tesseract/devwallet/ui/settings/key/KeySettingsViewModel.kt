@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import one.tesseract.devwallet.entity.KeySettings
-import one.tesseract.devwallet.rust.KeySettingsProvider
+import one.tesseract.devwallet.settings.KeySettingsProvider
 
 class KeySettingsViewModel : ViewModel() {
     private val _cache = MutableLiveData<KeySettings>().apply {

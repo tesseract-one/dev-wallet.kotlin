@@ -1,9 +1,8 @@
 package one.tesseract.devwallet.ui.settings.test
 
-import android.util.Log
 import androidx.lifecycle.*
 import one.tesseract.devwallet.entity.TestSettings
-import one.tesseract.devwallet.rust.TestSettingsProvider
+import one.tesseract.devwallet.settings.TestSettingsProvider
 
 class TestSettingsViewModel : ViewModel() {
     private val _cache = MutableLiveData<TestSettings>().apply {

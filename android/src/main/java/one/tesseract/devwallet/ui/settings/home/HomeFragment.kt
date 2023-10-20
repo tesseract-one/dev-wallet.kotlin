@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import one.tesseract.devwallet.databinding.FragmentHomeBinding
 import one.tesseract.devwallet.entity.request.TestSign
 import one.tesseract.devwallet.ui.sign.SignActivity
-import one.tesseract.ipc.activity.ActivityMonitor
-import one.tesseract.ipc.activity.free.Launcher
+import one.tesseract.transport.ipc.activity.ActivityMonitor
+import one.tesseract.transport.ipc.activity.free.Launcher
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
         viewModel.open.observe(viewLifecycleOwner) { it?.let {
             val req = TestSign("hardcode_from_home", "sig", "res")
-            SignActivity.requestUserConfirmation(launcher, req)
+            //SignActivity.requestUserConfirmation(launcher, req)
         }}
 
         return binding.root
