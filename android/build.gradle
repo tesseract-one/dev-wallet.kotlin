@@ -49,12 +49,14 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.ext.navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$rootProject.ext.navVersion"
 
+    implementation "one.tesseract:detached-activity:0.2.0"
+
     implementation "one.tesseract:base:$rootProject.ext.tesseractVersion"
-    //implementation "one.tesseract:common:$rootProject.ext.tesseractVersion"
-    implementation "one.tesseract:common"
+    implementation "one.tesseract:common:$rootProject.ext.tesseractVersion"
+    //implementation "one.tesseract:common"
     implementation "one.tesseract:common-transport-ipc:$rootProject.ext.tesseractVersion"
-    //implementation "one.tesseract:service:$rootProject.ext.tesseractVersion"
-    implementation 'one.tesseract:service'
+    implementation "one.tesseract:service:$rootProject.ext.tesseractVersion"
+    //implementation 'one.tesseract:service'
     implementation "one.tesseract:service-transport:$rootProject.ext.tesseractVersion"
     implementation "one.tesseract:service-transport-ipc:$rootProject.ext.tesseractVersion"
 

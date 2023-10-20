@@ -24,9 +24,9 @@ rootProject.name = "Developer Wallet Kotlin"
 include ':android'
 project(":android").name = "dev-wallet"
 
-includeBuild('../Tesseract.android') {
-    dependencySubstitution {
-        substitute module('one.tesseract:service') using project(':java:service')
-        substitute module('one.tesseract:common') using project(':java:common')
-    }
-}
+//includeBuild('../Tesseract.android') {
+//    dependencySubstitution {
+//        substitute module('one.tesseract:service') using project(':java:service')
+//        substitute module('one.tesseract:common') using project(':java:common')
+//    }
+//}

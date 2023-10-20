@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import one.tesseract.devwallet.databinding.FragmentHomeBinding
 import one.tesseract.devwallet.entity.request.TestSign
 import one.tesseract.devwallet.ui.sign.SignActivity
-import one.tesseract.transport.ipc.activity.ActivityMonitor
-import one.tesseract.transport.ipc.activity.free.Launcher
+import one.tesseract.activity.ActivityMonitor
+import one.tesseract.activity.detached.Launcher
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null

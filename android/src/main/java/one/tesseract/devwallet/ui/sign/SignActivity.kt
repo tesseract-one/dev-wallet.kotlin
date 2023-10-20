@@ -1,7 +1,5 @@
 package one.tesseract.devwallet.ui.sign
 
-import java.util.concurrent.CompletionStage
-
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Button
@@ -9,7 +7,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 
-import one.tesseract.transport.ipc.activity.free.Launcher
+import one.tesseract.activity.detached.Launcher
+import one.tesseract.activity.detached.finishDetachedActivity
 
 import one.tesseract.devwallet.R
 import one.tesseract.devwallet.entity.request.SubstrateAccount
@@ -20,7 +19,6 @@ import one.tesseract.devwallet.ui.sign.fragments.substrate.account.SubstrateAcco
 import one.tesseract.devwallet.ui.sign.fragments.substrate.sign.SubstrateSignFragment
 import one.tesseract.devwallet.ui.sign.fragments.test.error.TestErrorFragment
 import one.tesseract.devwallet.ui.sign.fragments.test.sign.TestSignFragment
-import one.tesseract.transport.ipc.activity.free.finishFreeActivity
 
 class SignActivity : AppCompatActivity() {
     companion object {
@@ -31,7 +29,7 @@ class SignActivity : AppCompatActivity() {
 
             bundle.putParcelable(REQUEST, request)
 
-            return launcher.startFreeActivityForResult<Boolean>(SignActivity::class.java, bundle).second
+            return launcher.startDetachedActivityForResult<Boolean>(SignActivity::class.java, bundle).second
         }
     }
 
@@ -72,11 +70,11 @@ class SignActivity : AppCompatActivity() {
         val buttonCancel = findViewById<Button>(R.id.buttonCancel)
 
         buttonSign.setOnClickListener {
-            this.finishFreeActivity(RESULT_OK, true)
+            this.finishDetachedActivity(RESULT_OK, true)
         }
 
         buttonCancel.setOnClickListener {
-            this.finishFreeActivity(RESULT_CANCELED, false)
+            this.finishDetachedActivity(RESULT_CANCELED, false)
         }
     }
 }
