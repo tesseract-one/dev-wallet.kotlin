@@ -2,8 +2,7 @@ package one.tesseract.devwallet.service
 
 import cash.z.ecc.android.bip39.Mnemonics
 import dev.sublab.sr25519.KeyPair
-import dev.sublab.sr25519.SecretKey
-import one.tesseract.devwallet.UI
+import one.tesseract.devwallet.Application
 import one.tesseract.devwallet.entity.request.SubstrateAccount
 import one.tesseract.devwallet.entity.request.SubstrateSign
 import one.tesseract.devwallet.service.tmp.Transaction
@@ -15,14 +14,14 @@ import one.tesseract.service.protocol.common.substrate.AccountType
 import one.tesseract.service.protocol.common.substrate.GetAccountResponse
 import one.tesseract.service.protocol.kotlin.SubstrateService
 
-class WalletSubstrateService(val ui: UI, val settings: KeySettingsProvider): SubstrateService {
+class WalletSubstrateService(val application: Application, val settings: KeySettingsProvider): SubstrateService {
     @OptIn(ExperimentalUnsignedTypes::class)
     override suspend fun getAccount(type: AccountType): GetAccountResponse {
         val kp = KeyPair.fromMnemonic(Mnemonics.MnemonicCode("nuclear text arrow gloom magnet aisle butter chair raven seek desert census"), "")
         val address = kp.address()
 
         val accountRequest = SubstrateAccount(type.name, "", address)
-        val allow = ui.requestUserConfirmation(accountRequest)
+        val allow = application.requestUserConfirmation(accountRequest)
 
         return if(allow) {
             GetAccountResponse(kp.publicKey.toByteArray(), "")
@@ -46,7 +45,7 @@ class WalletSubstrateService(val ui: UI, val settings: KeySettingsProvider): Sub
 
         val signRequest = SubstrateSign(accountType.name, accountPath, address, transactionString)
 
-        val allow = ui.requestUserConfirmation(signRequest)
+        val allow = application.requestUserConfirmation(signRequest)
 
         return if(allow) {
             transaction.sign(kp.secretKey).toByteArray()

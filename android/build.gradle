@@ -53,12 +53,7 @@ dependencies {
 
     implementation "one.tesseract:base:$rootProject.ext.tesseractVersion"
     implementation "one.tesseract:common:$rootProject.ext.tesseractVersion"
-    //implementation "one.tesseract:common"
-    implementation "one.tesseract:common-transport-ipc:$rootProject.ext.tesseractVersion"
     implementation "one.tesseract:service:$rootProject.ext.tesseractVersion"
-    //implementation 'one.tesseract:service'
-    implementation "one.tesseract:service-transport:$rootProject.ext.tesseractVersion"
-    implementation "one.tesseract:service-transport-ipc:$rootProject.ext.tesseractVersion"
 
     implementation("dev.sublab:scale-codec-kotlin:1.0.0")
 

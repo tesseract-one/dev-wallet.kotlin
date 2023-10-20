@@ -25,7 +25,7 @@ class KeySettingsFragment : Fragment() {
 
         //late bind
         val application = this.activity?.application as Application
-        viewModel.provider = application.core.keySettingsProvider()
+        viewModel.provider = application.keySettingsProvider()
 
         viewModel.load()
 

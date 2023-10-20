@@ -9,6 +9,7 @@ import androidx.fragment.app.commit
 
 import one.tesseract.activity.detached.Launcher
 import one.tesseract.activity.detached.finishDetachedActivity
+import one.tesseract.activity.detached.getExtras
 
 import one.tesseract.devwallet.R
 import one.tesseract.devwallet.entity.request.SubstrateAccount
@@ -36,7 +37,7 @@ class SignActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val extras = intent.extras ?: throw RuntimeException("No Extras :(")
+        val extras = getExtras() ?: throw RuntimeException("No Extras :(")
         val request: Any = extras.getParcelable(REQUEST) ?: throw RuntimeException("No Request")
 
         val fragment = when (request) {
