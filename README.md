@@ -25,72 +25,15 @@ Once the wallet is installed, you can just call **Tesseract** methods from withi
 
 ## Prerequisites
 
-### Common prerequisites
-
-Install Rust Environment (nightly) from [here](https://www.rust-lang.org/tools/install).
-
-### Android prerequisites
-
-1. Install Android toolchanins:
-
-```bash
-rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-```
-
-2. Install [Android Studio](https://developer.android.com/studio)
-3. Install [Android NDK](https://developer.android.com/studio/projects/install-ndk#default-version) (no need for CMAKE)
-
-### iOS prerequisites
-
-1. Install iOS toolchanins:
-
-```bash
-rustup target add aarch64-apple-ios-sim aarch64-apple-ios x86_64-apple-ios
-```
-
-2. Install Xcode from the App Store
+Install [Android Studio](https://developer.android.com/studio)
 
 ## Installation
 
-### Installation on Android
-
-1. Checkout [this repo](https://github.com/tesseract-one/dev-wallet) and [Tesseract.android](https://github.com/tesseract-one/Tesseract.android) side by side.
-2. Open dev-waller folder in Android Studio.
-3. Check `local.properties.example` and copy the ones you need for your environment (i.e. your NDK version) into your `local.properties`.
+1. Checkout [this repo](https://github.com/tesseract-one/dev-wallet.kotlin)
+2. Open dev-waller.kotlin folder in Android Studio.
 4. Run it on a desired device (or emulator).
 
-### Installation on iOS
 
-1. Checkout [this repo](https://github.com/tesseract-one/dev-wallet).
-2. Open `ios/Developer Wallet.xcodeproj` in Xcode.
-3. Run the **Developer Wallet**.
-
-## Setting up VSCode
-
-The way to make things workable in VSCode, use these settings (`.vscode/settings.json`):
-
-```json
-{
-    "rust-analyzer.cargo.target": "x86_64-apple-ios",
-    "rust-analyzer.cargo.features": [
-        "substrate"
-    ]
-}
-```
-
-or alternatively use one of the other targets depending on your needs:
-
-```bash
-#Android
-aarch64-linux-android
-armv7-linux-androideabi
-i686-linux-android
-x86_64-linux-android
-#iOS
-aarch64-apple-ios-sim
-aarch64-apple-ios
-x86_64-apple-ios
-```
 
 Also, you can switch off the protocol features when not working on them.
 
