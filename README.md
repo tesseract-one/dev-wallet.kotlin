@@ -33,10 +33,6 @@ Install [Android Studio](https://developer.android.com/studio)
 2. Open dev-waller.kotlin folder in Android Studio.
 4. Run it on a desired device (or emulator).
 
-
-
-Also, you can switch off the protocol features when not working on them.
-
 ## License
 
 Tesseract.rs can be used, distributed and modified under [the Apache 2.0 license](LICENSE).
