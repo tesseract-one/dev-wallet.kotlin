@@ -3,9 +3,9 @@ package one.tesseract.devwallet.service
 import dev.sublab.sr25519.KeyPair
 
 import one.tesseract.exception.UserCancelledException
-import one.tesseract.service.protocol.common.substrate.AccountType
-import one.tesseract.service.protocol.common.substrate.GetAccountResponse
-import one.tesseract.service.protocol.kotlin.SubstrateService
+import one.tesseract.protocol.common.substrate.AccountType
+import one.tesseract.protocol.common.substrate.GetAccountResponse
+import one.tesseract.protocol.kotlin.SubstrateService
 
 import one.tesseract.devwallet.Application
 import one.tesseract.devwallet.entity.request.SubstrateAccount

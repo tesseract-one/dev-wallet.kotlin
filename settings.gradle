@@ -24,9 +24,22 @@ rootProject.name = "Developer Wallet Kotlin"
 include ':android'
 project(":android").name = "dev-wallet"
 
-//includeBuild('../Tesseract.android') {
-//    dependencySubstitution {
-//        substitute module('one.tesseract:service') using project(':java:service')
-//        substitute module('one.tesseract:common') using project(':java:common')
-//    }
-//}
+def projectDir = rootProject.projectDir
+def localPropsFile = new File(projectDir, 'local.properties')
+Properties properties = new Properties()
+properties.load(localPropsFile.newDataInputStream())
+
+def devModeString = properties.getProperty('tesseract.devmode')
+def devMode = devModeString == null ? false : devModeString == "true"
+
+if(devMode) {
+    includeBuild('../Tesseract.android') {
+        dependencySubstitution {
+            substitute module('one.tesseract:detached-activity') using project(':java:detached-activity')
+            substitute module('one.tesseract:base') using project(':java:base')
+            substitute module('one.tesseract:common') using project(':java:common')
+            substitute module('one.tesseract:service') using project(':java:service')
+        }
+    }
+}
+

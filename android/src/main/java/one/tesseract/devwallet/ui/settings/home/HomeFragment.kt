@@ -30,12 +30,12 @@ class HomeFragment : Fragment() {
         binding.model = viewModel
         binding.lifecycleOwner = this
 
-        val launcher = Launcher(ActivityMonitor(requireActivity().application))
+        //val launcher = Launcher(ActivityMonitor(requireActivity().application))
 
-        viewModel.open.observe(viewLifecycleOwner) { it?.let {
-            val req = TestSign("hardcode_from_home", "sig", "res")
+        //viewModel.open.observe(viewLifecycleOwner) { it?.let {
+            //val req = TestSign("hardcode_from_home", "sig", "res")
             //SignActivity.requestUserConfirmation(launcher, req)
-        }}
+        //}}
 
         return binding.root
     }

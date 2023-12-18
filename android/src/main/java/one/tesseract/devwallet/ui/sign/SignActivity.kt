@@ -38,7 +38,7 @@ class SignActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val extras = getExtras() ?: throw RuntimeException("No Extras :(")
-        val request: Any = extras.getParcelable(REQUEST) ?: throw RuntimeException("No Request")
+        @Suppress("DEPRECATION") val request: Any = extras.getParcelable(REQUEST) ?: throw RuntimeException("No Request")
 
         val fragment = when (request) {
             is TestSign -> {

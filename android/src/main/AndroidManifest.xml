@@ -45,10 +45,6 @@
                 <data android:mimeType="tesseract/test" />
                 <data android:mimeType="tesseract/substrate-v1" />
             </intent-filter>
-
-            <meta-data
-                android:name="channel"
-                android:value="default" />
         </activity>
     </application>
 

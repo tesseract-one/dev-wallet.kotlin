@@ -1,7 +1,7 @@
 package one.tesseract.devwallet.service
 
 import one.tesseract.exception.UserCancelledException
-import one.tesseract.service.protocol.kotlin.TestService
+import one.tesseract.protocol.kotlin.TestService
 
 import one.tesseract.devwallet.Application
 import one.tesseract.devwallet.entity.request.TestError
